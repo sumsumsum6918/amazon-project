@@ -1,6 +1,8 @@
 //create data structure with arrays and objects
 //loading products details from the products data file
 
+import { cart } from "../data/cart.js"; //rename variable with cart as myCart
+
 let productsHTML = "";
 
 products.forEach((product) => {
