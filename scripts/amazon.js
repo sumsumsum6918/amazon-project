@@ -3,6 +3,7 @@
 
 import { cart, addToCart } from "../data/cart.js"; //rename variable with cart as myCart
 import { products } from "../data/products.js";
+import { formatCurrency } from "./utils/money.js";
 //or import everything from a file, import * as cartModule from "../";
 //and access with cartModule.cart and cartModule.addToCart('id')
 
@@ -32,10 +33,9 @@ products.forEach((product) => {
             }</div>
           </div>
 
-          <div class="product-price">$${
-            (product.priceCents / 100).toFixed(2)
-            //to show 2 decimals
-          }</div>
+          <div class="product-price">$${formatCurrency(
+            product.priceCents
+          )}</div>
 
           <div class="product-quantity-container">
             <select class="js-quantity-selector-${product.id}">
