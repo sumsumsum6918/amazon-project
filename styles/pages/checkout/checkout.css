@@ -221,4 +221,8 @@
   .save-quantity-link {
     display: initial;
   }
+  .update-quantity-link,
+  .quantity-label {
+    display: none;
+  }
 }
