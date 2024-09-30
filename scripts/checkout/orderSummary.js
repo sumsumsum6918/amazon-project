@@ -7,41 +7,32 @@ import {
   updateCartQuantity,
   saveQuantity,
 } from "../../data/cart.js";
-import { products } from "../../data/products.js";
+import { products, getProduct } from "../../data/products.js";
 import { formatCurrency } from "../utils/money.js";
 import dayjs from "https://unpkg.com/dayjs@1.11.10/esm/index.js";
-import { deliveryOptions } from "../../data/deliveryOptions.js";
+import {
+  deliveryOptions,
+  getDeliveryOption,
+} from "../../data/deliveryOptions.js";
 
 export function renderOrderSummary() {
-  let cartSummartHTML = "";
+  let cartSummaryHTML = "";
 
   cart.forEach((cartItem) => {
     const productId = cartItem.productId;
 
-    let matchingProduct;
-
-    products.forEach((product) => {
-      if (product.id === productId) {
-        matchingProduct = product;
-      }
-    });
+    const matchingProduct = getProduct(productId);
 
     const deliveryOptionId = cartItem.deliveryOptionId;
 
-    let deliveryOption;
-
-    deliveryOptions.forEach((option) => {
-      if (option.id === deliveryOptionId) {
-        deliveryOption = option;
-      }
-    });
+    const deliveryOption = getDeliveryOption(deliveryOptionId);
 
     const today = dayjs();
     const deliveryDate = today.add(deliveryOption.deliveryDays, "days");
 
     const dateString = deliveryDate.format("dddd, MMM D");
 
-    cartSummartHTML += ` 
+    cartSummaryHTML += ` 
      <div class="cart-item-container js-cart-item-container-${
        matchingProduct.id
      }">
@@ -128,7 +119,7 @@ export function renderOrderSummary() {
     return html;
   }
 
-  document.querySelector(".js-order-summary").innerHTML = cartSummartHTML;
+  document.querySelector(".js-order-summary").innerHTML = cartSummaryHTML;
 
   document.querySelectorAll(".js-delete-link").forEach((link) => {
     link.addEventListener("click", () => {
@@ -173,7 +164,7 @@ export function renderOrderSummary() {
     element.addEventListener("click", () => {
       const { productId, deliveryOptionId } = element.dataset;
       updateDeliveryOption(productId, deliveryOptionId);
-      rederOrderSummary();
+      renderOrderSummary();
     });
   });
 }
