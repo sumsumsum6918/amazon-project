@@ -1,3 +1,3 @@
-import { rederOrderSummary } from "./checkout/orderSummary.js";
+import { renderOrderSummary } from "./checkout/orderSummary.js";
 
-rederOrderSummary();
+renderOrderSummary();
