@@ -1,8 +1,6 @@
 import {
   cart,
   removeFromCart,
-  calculateCartQuantity,
-  updateQuantity,
   updateDeliveryOption,
   updateCartQuantity,
   saveQuantity,
@@ -152,7 +150,7 @@ export function renderOrderSummary() {
   document.querySelectorAll(".js-save-link").forEach((link) => {
     link.addEventListener("click", () => {
       saveQuantity(link);
-      rederOrderSummary();
+      renderPaymentSummary();
     });
   });
 
@@ -160,6 +158,7 @@ export function renderOrderSummary() {
     link.addEventListener("keydown", (event) => {
       if (event.key === "Enter") {
         saveQuantity(link);
+        renderPaymentSummary();
       }
     });
   });
