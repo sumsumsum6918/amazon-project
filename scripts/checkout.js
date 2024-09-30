@@ -4,15 +4,13 @@ import {
   calculateCartQuantity,
   updateQuantity,
   updateDeliveryOption,
+  updateCartQuantity,
+  saveQuantity,
 } from "../data/cart.js";
 import { products } from "../data/products.js";
 import { formatCurrency } from "./utils/money.js";
 import dayjs from "https://unpkg.com/dayjs@1.11.10/esm/index.js";
 import { deliveryOptions } from "../data/deliveryOptions.js";
-
-const today = dayjs();
-const deliveryDate = today.add(7, "day");
-console.log(deliveryDate.format("dddd, MMM D"));
 
 let cartSummartHTML = "";
 
@@ -143,13 +141,6 @@ document.querySelectorAll(".js-delete-link").forEach((link) => {
   });
 });
 
-function updateCartQuantity() {
-  const cartQuantity = calculateCartQuantity();
-
-  document.querySelector(
-    ".js-return-to-home-link"
-  ).innerHTML = `${cartQuantity} items`;
-}
 updateCartQuantity();
 
 document.querySelectorAll(".js-update-link").forEach((link) => {
@@ -167,34 +158,6 @@ document.querySelectorAll(".js-save-link").forEach((link) => {
     saveQuantity(link);
   });
 });
-
-function saveQuantity(link) {
-  const { productId } = link.dataset;
-
-  const quantityInput = document.querySelector(
-    `.js-quantity-input-${productId}`
-  );
-  const newQuantity = Number(quantityInput.value);
-
-  if (newQuantity < 0 || newQuantity >= 1000) {
-    alert("Quantity must be at least 0 and less than 1000");
-  }
-
-  updateQuantity(productId, newQuantity);
-
-  const container = document.querySelector(
-    `.js-cart-item-container-${productId}`
-  );
-  container.classList.remove("is-editing-quantity");
-
-  const quantityLabel = document.querySelector(
-    `.js-quantity-label-${productId}`
-  );
-
-  quantityLabel.innerHTML = newQuantity;
-
-  updateCartQuantity();
-}
 
 document.querySelectorAll(".js-quantity-input").forEach((link) => {
   link.addEventListener("keydown", (event) => {
