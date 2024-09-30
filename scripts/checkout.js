@@ -157,6 +157,7 @@ function rederOrderSummary() {
   document.querySelectorAll(".js-save-link").forEach((link) => {
     link.addEventListener("click", () => {
       saveQuantity(link);
+      rederOrderSummary();
     });
   });
 
@@ -178,3 +179,7 @@ function rederOrderSummary() {
 }
 
 rederOrderSummary();
+//MVC loops between MVC, it is a design pattern
+//model: saves and manages the data (cart.js)
+//view: takes the data and displays it (checkout.js HTML parts)
+//controller: runs some code when we interact with the page (checkout.js event listeners parts)
