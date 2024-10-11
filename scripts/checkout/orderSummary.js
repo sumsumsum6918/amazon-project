@@ -2,7 +2,6 @@ import {
   cart,
   removeFromCart,
   updateDeliveryOption,
-  updateCartQuantity,
   saveQuantity,
 } from "../../data/cart.js";
 import { products, getProduct } from "../../data/products.js";
@@ -122,13 +121,10 @@ export function renderOrderSummary() {
       removeFromCart(productId);
 
       renderOrderSummary();
-      updateCartQuantity();
-
+      renderCheckoutHeader();
       renderPaymentSummary();
     });
   });
-
-  updateCartQuantity();
 
   document.querySelectorAll(".js-update-link").forEach((link) => {
     link.addEventListener("click", () => {
@@ -145,7 +141,7 @@ export function renderOrderSummary() {
       saveQuantity(link);
 
       renderCheckoutHeader();
-
+      renderOrderSummary();
       renderPaymentSummary();
     });
   });

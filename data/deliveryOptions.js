@@ -30,7 +30,7 @@ export function getDeliveryOption(deliveryOptionId) {
 }
 
 export function calculateDeliveryDate(deliveryOption) {
-  let deliveryDate = dayjs().add;
+  let deliveryDate = dayjs();
 
   let remainingDate = deliveryOption.deliveryDays;
 
