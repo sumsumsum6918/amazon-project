@@ -13,6 +13,7 @@ import {
   getDeliveryOption,
 } from "../../data/deliveryOptions.js";
 import { renderPaymentSummary } from "./paymentSummary.js";
+import { renderCheckoutHeader } from "../checkout/checkoutHeader.js";
 
 export function renderOrderSummary() {
   let cartSummaryHTML = "";
@@ -147,6 +148,9 @@ export function renderOrderSummary() {
   document.querySelectorAll(".js-save-link").forEach((link) => {
     link.addEventListener("click", () => {
       saveQuantity(link);
+
+      renderCheckoutHeader();
+
       renderPaymentSummary();
     });
   });

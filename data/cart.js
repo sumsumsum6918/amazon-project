@@ -1,3 +1,5 @@
+import { renderCheckoutHeader } from "../scripts/checkout/checkoutHeader.js";
+
 export let cart = JSON.parse(localStorage.getItem("cart"));
 
 if (!cart) {
@@ -39,7 +41,7 @@ export function addToCart(productId) {
   } else {
     cart.push({
       productId,
-      quantity: 1,
+      quantity,
       deliveryOptionsId: "1",
     });
   }
@@ -95,10 +97,7 @@ export function updateDeliveryOption(productId, deliveryOptionId) {
 
 export function updateCartQuantity() {
   const cartQuantity = calculateCartQuantity();
-
-  document.querySelector(
-    ".js-return-to-home-link"
-  ).innerHTML = `${cartQuantity} items`;
+  renderCheckoutHeader();
 }
 
 export function saveQuantity(link) {
