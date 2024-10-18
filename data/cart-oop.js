@@ -7,7 +7,7 @@ function Cart(localStorageKey) {
 
     loadFromStorage() {
       //short cut for loadFromStorage: function () {
-      this.cartItem = JSON.parse(localStorage.getItem(localStorageKey));
+      this.cartItems = JSON.parse(localStorage.getItem(localStorageKey));
 
       if (!this.cartItems) {
         this.cartItems = [
