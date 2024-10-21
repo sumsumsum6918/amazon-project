@@ -60,6 +60,37 @@ class Clothing extends Product {
 //inheritanve lets us reuse code between classes
 //so that we can add properties and methods that are more specific
 
+/*
+const date = new Date();
+console.log(date);
+console.log(date.toLocaleTimeString());*/
+
+/*console.log(this); //undefine
+
+const object2 = {
+  a: 2,
+  b: this.a,
+};
+//this doesnt work because the object has not been created yet*/
+
+/*
+function logThis() {
+  console.log(this); //undefine
+}
+logThis();
+logThis.call("hello"); //"hello" = this by using method .call
+
+this; //undefined
+const object3 = {
+  method: () => {
+    //arrow functions do not hcange the value of "this"
+    console.log(this); //undefined
+    //because "this" keeps the calue that it had outside the arrow functiuon
+  },
+};
+object3.method();
+*/
+
 export const products = [
   {
     id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
@@ -559,3 +590,14 @@ export const products = [
   }
   return new Product(productDetails);
 });
+
+/*
+"this"
+
+1. inside a regualr function, this = undefined
+    but we can change it with .call()
+2. inside a arrow function, this = whatever it is outside the arrow function
+    which means arrow functions do not change the value of "this"
+3. inside a method, "this" points to the outer object
+
+*/
