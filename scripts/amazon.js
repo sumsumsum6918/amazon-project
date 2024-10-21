@@ -50,6 +50,8 @@ products.forEach((product) => {
             </select>
           </div>
 
+          ${product.extraInfoHTML()} 
+
           <div class="product-spacer"></div>
 
           <div class="added-to-cart js-added-to-cart-${product.id}">
@@ -64,6 +66,10 @@ products.forEach((product) => {
         </div>
 `;
 });
+//${product.extraInfoHTML()} *shows only with Clothing Class
+//is polymorphism, use a method wihtout knowing the class
+//like a if statement
+
 //data attribute uses kebab case: data-product-name-name-name-or-more;
 //must starts with data-
 

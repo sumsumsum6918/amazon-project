@@ -33,7 +33,32 @@ class Product {
   getPrice() {
     return `$${formatCurrency(this.priceCents)}`;
   }
+
+  extraInfoHTML() {
+    return "";
+  }
 }
+
+class Clothing extends Product {
+  sizeChartLink;
+
+  constructor(productDetails) {
+    super(productDetails); //call the constructor of the parent class
+    this.sizeChartLink = productDetails.sizeChartLink;
+  }
+
+  extraInfoHTML() {
+    //method overriding, override the parent method
+    //super.extraImfoHTML();
+    return `
+    <a href="${this.sizeChartLink}" target="_blank">Size chart</a>
+    `;
+  }
+}
+
+//inherit all the propertiesand methods from Product
+//inheritanve lets us reuse code between classes
+//so that we can add properties and methods that are more specific
 
 export const products = [
   {
@@ -529,5 +554,8 @@ export const products = [
     keywords: ["umbrella", "rain", "light", "mens"],
   },
 ].map((productDetails) => {
+  if (productDetails.type === "clothing") {
+    return new Clothing(productDetails);
+  }
   return new Product(productDetails);
 });
