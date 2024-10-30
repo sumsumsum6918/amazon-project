@@ -22,7 +22,7 @@ export function renderCheckoutHeader() {
             class="return-to-home-link"
             href="amazon.html"
           >
-          ${cartQuantity}
+          ${cartQuantity} items
           </a
           >)
         </div>
