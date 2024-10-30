@@ -2,15 +2,17 @@
 //loading products details from the products data file
 
 import { cart, addToCart, calculateCartQuantity } from "../data/cart.js"; //rename variable with cart as myCart
-import { products } from "../data/products.js";
+import { products, loadProducts } from "../data/products.js";
 import { formatCurrency } from "./utils/money.js";
 //or import everything from a file, import * as cartModule from "../";
 //and access with cartModule.cart and cartModule.addToCart('id')
+loadProducts(renderProductsGrid);
 
-let productsHTML = "";
+export function renderProductsGrid() {
+  let productsHTML = "";
 
-products.forEach((product) => {
-  productsHTML += `
+  products.forEach((product) => {
+    productsHTML += `
   <div class="product-container">
           <div class="product-image-container">
             <img
@@ -65,50 +67,51 @@ products.forEach((product) => {
           >Add to Cart</button>
         </div>
 `;
-});
-//${product.extraInfoHTML()} *shows only with Clothing Class
-//is polymorphism, use a method wihtout knowing the class
-//like a if statement
-
-//data attribute uses kebab case: data-product-name-name-name-or-more;
-//must starts with data-
-
-document.querySelector(".js-products-grid").innerHTML = productsHTML;
-
-function updateCartQuantity() {
-  const cartQuantity = calculateCartQuantity();
-
-  document.querySelector(".js-cart-quantity").innerHTML = cartQuantity;
-}
-
-updateCartQuantity();
-
-const addedMessageTimeouts = {};
-
-document.querySelectorAll(".js-add-to-cart").forEach((button) => {
-  button.addEventListener("click", () => {
-    //finds the data that saved in the data- *uses camal case
-    const { productId } = button.dataset; //deconstructing
-
-    addToCart(productId);
-
-    updateCartQuantity();
-
-    const addedMessage = document.querySelector(
-      `.js-added-to-cart-${productId}`
-    );
-
-    addedMessage.classList.add("added-to-cart-visible");
-
-    const previousTimoutId = addedMessageTimeouts[productId];
-
-    if (previousTimoutId) {
-      clearTimeout(previousTimoutId);
-    }
-    const timeoutId = setTimeout(() => {
-      addedMessage.classList.remove("added-to-cart-visible");
-    }, 2000);
-
-    addedMessageTimeouts[productId] = timeoutId;
   });
-});
+  //${product.extraInfoHTML()} *shows only with Clothing Class
+  //is polymorphism, use a method wihtout knowing the class
+  //like a if statement
+
+  //data attribute uses kebab case: data-product-name-name-name-or-more;
+  //must starts with data-
+
+  document.querySelector(".js-products-grid").innerHTML = productsHTML;
+
+  function updateCartQuantity() {
+    const cartQuantity = calculateCartQuantity();
+
+    document.querySelector(".js-cart-quantity").innerHTML = cartQuantity;
+  }
+
+  updateCartQuantity();
+
+  const addedMessageTimeouts = {};
+
+  document.querySelectorAll(".js-add-to-cart").forEach((button) => {
+    button.addEventListener("click", () => {
+      //finds the data that saved in the data- *uses camal case
+      const { productId } = button.dataset; //deconstructing
+
+      addToCart(productId);
+
+      updateCartQuantity();
+
+      const addedMessage = document.querySelector(
+        `.js-added-to-cart-${productId}`
+      );
+
+      addedMessage.classList.add("added-to-cart-visible");
+
+      const previousTimoutId = addedMessageTimeouts[productId];
+
+      if (previousTimoutId) {
+        clearTimeout(previousTimoutId);
+      }
+      const timeoutId = setTimeout(() => {
+        addedMessage.classList.remove("added-to-cart-visible");
+      }, 2000);
+
+      addedMessageTimeouts[productId] = timeoutId;
+    });
+  });
+}
