@@ -102,9 +102,10 @@ export function loadProductsFetch() {
 }
 
 //enable to attach another step by returning promise
-loadProductsFetch().then(() => {
-  console.log("next step");
-});
+loadProductsFetch();
+//.then(() => {
+// console.log("next step");
+//});
 
 /*
 export function loadProducts(fun) {

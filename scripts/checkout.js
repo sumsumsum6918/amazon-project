@@ -7,6 +7,42 @@ import { loadCart } from "../data/cart.js";
 //import "../../Exercises/17/data/car.js";
 //import "../data/backend-practice.js";
 
+//async makes a function return a promise
+//async let us use await
+//await let us wait for a promise to finish before going to its next line
+//below code is euqal to code...
+// function loadPage() {
+//   return new Promise((resolve) => {
+//     console.log("load page");
+//     resolve();
+//   })
+//     .then(() => {
+//       return loadProductsFetch();
+//     })
+//     .then(() => {
+//       return new Promise((resolve) => {
+//         resolve("value2");
+//       });
+//     });
+// }
+async function loadPage() {
+  await loadProductsFetch();
+  //use await instead of using .then(() => {});
+  //cna only use await when inside an async function
+
+  const value = await new Promise((resolve) => {
+    loadCart(() => {
+      resolve("value3");
+    });
+  });
+
+  renderOrderSummary();
+  renderPaymentSummary();
+  renderCheckoutHeader();
+}
+
+loadPage();
+/*
 Promise.all([
   loadProductsFetch(),
   // new Promise((resolve) => {
@@ -24,7 +60,7 @@ Promise.all([
   renderOrderSummary();
   renderPaymentSummary();
   renderCheckoutHeader();
-});
+});*/
 
 /*
 new Promise((resolve) => {
