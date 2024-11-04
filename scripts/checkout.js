@@ -26,15 +26,24 @@ import { loadCart } from "../data/cart.js";
 //     });
 // }
 async function loadPage() {
-  await loadProductsFetch();
-  //use await instead of using .then(() => {});
-  //cna only use await when inside an async function
+  try {
+    //throw "error1"; //manually create in an error
+    //try catch can be use with sunchronous code/ normal code
+    //when code inside try gets an error we can catch it
+    await loadProductsFetch();
+    //use await instead of using .then(() => {});
+    //cna only use await when inside an async function
 
-  const value = await new Promise((resolve) => {
-    loadCart(() => {
-      resolve("value3");
+    const value = await new Promise((resolve, reject) => {
+      // throw "error2"; //throw does not work in the future. so need reject
+      loadCart(() => {
+        //reject("error3"); //create error in the future
+        resolve("value3");
+      });
     });
-  });
+  } catch (error) {
+    console.log("Unexpected error. Please try again later.");
+  }
 
   renderOrderSummary();
   renderPaymentSummary();
