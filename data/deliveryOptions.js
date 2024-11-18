@@ -62,3 +62,8 @@ function isWeekend(date) {
   const dayOfWeek = date.format("dddd");
   return dayOfWeek === "Saturday" || dayOfWeek === "Sunday";
 }
+
+export function formatDeliveryDate(deliveryDate) {
+  const dateString = dayjs(deliveryDate).format("MMMM D");
+  return dateString;
+}

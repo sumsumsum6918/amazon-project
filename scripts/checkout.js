@@ -27,10 +27,7 @@ import { loadCartFetch } from "../data/cart.js";
 // }
 async function loadPage() {
   try {
-    await Promise.all((resolve) => {
-      loadProductsFetch();
-      loadCartFetch();
-    });
+    await Promise.all([loadProductsFetch(), loadCartFetch()]);
     //throw "error1"; //manually create in an error
     //try catch can be use with sunchronous code/ normal code
     //when code inside try gets an error we can catch it
