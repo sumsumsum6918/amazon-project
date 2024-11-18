@@ -2,7 +2,7 @@ import { renderOrderSummary } from "./checkout/orderSummary.js";
 import { renderPaymentSummary } from "./checkout/paymentSummary.js";
 import { renderCheckoutHeader } from "./checkout/checkoutHeader.js";
 import { loadProductsFetch } from "../data/products.js";
-import { loadCart } from "../data/cart.js";
+import { loadCartFetch } from "../data/cart.js";
 //import "../data/cart-class.js";
 //import "../../Exercises/17/data/car.js";
 //import "../data/backend-practice.js";
@@ -27,20 +27,25 @@ import { loadCart } from "../data/cart.js";
 // }
 async function loadPage() {
   try {
+    await Promise.all((resolve) => {
+      loadProductsFetch();
+      loadCartFetch();
+    });
     //throw "error1"; //manually create in an error
     //try catch can be use with sunchronous code/ normal code
     //when code inside try gets an error we can catch it
-    await loadProductsFetch();
+    //await loadProductsFetch();
     //use await instead of using .then(() => {});
     //cna only use await when inside an async function
 
-    const value = await new Promise((resolve, reject) => {
-      // throw "error2"; //throw does not work in the future. so need reject
-      loadCart(() => {
-        //reject("error3"); //create error in the future
-        resolve("value3");
-      });
-    });
+    // const value = await new Promise((resolve, reject) => {
+    //   // throw "error2"; //throw does not work in the future. so need reject
+    //   loadCart(() => {
+    //     //reject("error3"); //create error in the future
+    //     resolve("value3");
+    //   });
+    // });
+    //await loadCartFetch();
   } catch (error) {
     console.log("Unexpected error. Please try again later.");
   }

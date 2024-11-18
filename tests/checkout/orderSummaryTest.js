@@ -8,10 +8,8 @@ describe("test suite: renderOrderSummary", () => {
   const productName1 = "Black and Gray Athletic Cotton Socks - 6 Pairs";
   const productName2 = "Intermediate Size Basketball";
 
-  beforeAll((done) => {
-    loadProductsFetch().then(() => {
-      done();
-    });
+  beforeAll(async () => {
+    await loadProductsFetch();
   });
 
   beforeEach(() => {

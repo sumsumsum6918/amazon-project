@@ -143,6 +143,13 @@ export function saveQuantity(link) {
   updateCartQuantity();
 }
 
+export async function loadCartFetch() {
+  const response = await fetch("https://supersimplebackend.dev/cart");
+  const text = await response.text();
+  console.log(text);
+  return text;
+}
+
 export function loadCart(fun) {
   const xhr = new XMLHttpRequest();
   xhr.addEventListener("load", () => {
