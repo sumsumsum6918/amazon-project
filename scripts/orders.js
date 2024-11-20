@@ -2,6 +2,7 @@ import { orders } from "../data/order.js";
 import { getProduct, loadProductsFetch } from "../data/products.js";
 import { formatDeliveryDate } from "../data/deliveryOptions.js";
 import { formatCurrency } from "./utils/money.js";
+import { buyAgain } from "../data/cart.js";
 
 async function renderPlacedOrder() {
   try {
@@ -44,7 +45,22 @@ async function renderPlacedOrder() {
     document.querySelector(".js-orders-grid").innerHTML = orderHeaderHTML;
   });
 }
-renderPlacedOrder();
+renderPlacedOrder().then(() => {
+  document.querySelectorAll(".js-buy-again-button").forEach((button) => {
+    button.addEventListener("click", () => {
+      const { productId } = button.dataset;
+
+      const quantityElement = document.querySelector(
+        `.js-product-quantity-${productId}`
+      ).innerText;
+
+      const quantity = Number(quantityElement.split(" ")[1]);
+      console.log(quantity);
+
+      buyAgain(productId, quantity);
+    });
+  });
+});
 
 function productsListHTML(order) {
   let orderDetailsHTML = "";
@@ -64,8 +80,8 @@ function productsListHTML(order) {
           <div class="product-details">
             <div class="product-name">${product.name}</div>
             <div class="product-delivery-date">Arriving on: ${dateString} </div>
-            <div class="product-quantity">Quantity: ${productDetails.quantity}</div>
-            <button class="buy-again-button button-primary">
+            <div class="product-quantity js-product-quantity-${productDetails.productId}">Quantity: ${productDetails.quantity}</div>
+            <button class="buy-again-button button-primary js-buy-again-button" data-product-id="${productDetails.productId}">
               <img class="buy-again-icon" src="images/icons/buy-again.png" />
               <span class="buy-again-message">Buy it again</span>
             </button>

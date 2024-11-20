@@ -45,6 +45,23 @@ export function addToCart(productId) {
   saveToStorage();
 }
 
+export function buyAgain(productId, quantity) {
+  const matchingItem = cart.find(
+    (cartItem) => cartItem.productId === productId
+  );
+
+  if (matchingItem) {
+    matchingItem.quantity += quantity;
+  } else {
+    cart.push({
+      productId,
+      quantity,
+      deliveryOptionId: "1",
+    });
+  }
+  saveToStorage();
+}
+
 export function removeFromCart(productId) {
   const newCart = [];
   cart.forEach((cartItem) => {
