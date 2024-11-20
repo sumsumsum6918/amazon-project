@@ -57,6 +57,14 @@ async function renderPlacedOrder() {
         buyAgain(productId, quantity);
 
         updateHeaderQuantity();
+
+        button.innerHTML = "Added";
+        setTimeout(() => {
+          button.innerHTML = `
+          <img class="buy-again-icon" src="images/icons/buy-again.png">
+          <span class="buy-again-message">Buy it again</span>
+        `;
+        }, 1000);
       });
     });
   });
@@ -90,7 +98,7 @@ function productsListHTML(order) {
           </div>
 
           <div class="product-actions">
-            <a href="tracking.html">
+            <a href="tracking.html?orderId=${order.id}&productId=${productDetails.productId}">
               <button class="track-package-button button-secondary">
                 Track package
               </button>
