@@ -2,7 +2,7 @@ import { orders } from "../data/order.js";
 import { getProduct, loadProductsFetch } from "../data/products.js";
 import { formatDeliveryDate } from "../data/deliveryOptions.js";
 import { formatCurrency } from "./utils/money.js";
-import { buyAgain } from "../data/cart.js";
+import { buyAgain, updateHeaderQuantity } from "../data/cart.js";
 
 async function renderPlacedOrder() {
   try {
@@ -43,24 +43,26 @@ async function renderPlacedOrder() {
         </div>
 `;
     document.querySelector(".js-orders-grid").innerHTML = orderHeaderHTML;
-  });
-}
-renderPlacedOrder().then(() => {
-  document.querySelectorAll(".js-buy-again-button").forEach((button) => {
-    button.addEventListener("click", () => {
-      const { productId } = button.dataset;
 
-      const quantityElement = document.querySelector(
-        `.js-product-quantity-${productId}`
-      ).innerText;
+    document.querySelectorAll(".js-buy-again-button").forEach((button) => {
+      button.addEventListener("click", () => {
+        const { productId } = button.dataset;
 
-      const quantity = Number(quantityElement.split(" ")[1]);
-      console.log(quantity);
+        const quantityElement = document.querySelector(
+          `.js-product-quantity-${productId}`
+        ).innerText;
 
-      buyAgain(productId, quantity);
+        const quantity = Number(quantityElement.split(" ")[1]);
+
+        buyAgain(productId, quantity);
+
+        updateHeaderQuantity();
+      });
     });
   });
-});
+}
+renderPlacedOrder();
+updateHeaderQuantity();
 
 function productsListHTML(order) {
   let orderDetailsHTML = "";

@@ -1,12 +1,15 @@
 //create data structure with arrays and objects
 //loading products details from the products data file
 
-import { cart, addToCart, calculateCartQuantity } from "../data/cart.js"; //rename variable with cart as myCart
-import { products, loadProducts } from "../data/products.js";
+import { cart, addToCart, updateHeaderQuantity } from "../data/cart.js"; //rename variable with cart as myCart
+import { products, loadProductsFetch } from "../data/products.js";
 import { formatCurrency } from "./utils/money.js";
 //or import everything from a file, import * as cartModule from "../";
 //and access with cartModule.cart and cartModule.addToCart('id')
-loadProducts(renderProductsGrid);
+//loadProducts(renderProductsGrid);
+loadProductsFetch().then(() => {
+  renderProductsGrid();
+});
 
 export function renderProductsGrid() {
   let productsHTML = "";
@@ -77,13 +80,7 @@ export function renderProductsGrid() {
 
   document.querySelector(".js-products-grid").innerHTML = productsHTML;
 
-  function updateCartQuantity() {
-    const cartQuantity = calculateCartQuantity();
-
-    document.querySelector(".js-cart-quantity").innerHTML = cartQuantity;
-  }
-
-  updateCartQuantity();
+  updateHeaderQuantity();
 
   const addedMessageTimeouts = {};
 
@@ -94,7 +91,7 @@ export function renderProductsGrid() {
 
       addToCart(productId);
 
-      updateCartQuantity();
+      updateHeaderQuantity();
 
       const addedMessage = document.querySelector(
         `.js-added-to-cart-${productId}`
