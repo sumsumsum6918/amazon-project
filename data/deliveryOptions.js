@@ -67,3 +67,8 @@ export function formatDeliveryDate(deliveryDate) {
   const dateString = dayjs(deliveryDate).format("MMMM D");
   return dateString;
 }
+
+export function formatDeliveryWeekday(deliveryDate) {
+  const dateString = dayjs(deliveryDate).format("dddd, MMM D");
+  return dateString;
+}
